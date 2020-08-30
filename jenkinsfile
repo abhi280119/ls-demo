@@ -19,7 +19,16 @@ pipeline {
 		stage('Code Checkout') {
 			steps {
 				echo '++++++++++++++++++++Code Checkout stage - checking out the source code++++++++++++++++++++'
-				git 'https://github.com/abhi280119/ls-demo'
+				//git 'https://github.com/abhi280119/ls-demo'
+				checkout([
+						$class: 'GitSCM', 
+						branches: [[name: '*/release*']], 
+						doGenerateSubmoduleConfigurations: false, 
+						extensions: [[$class: 'CleanBeforeCheckout']], 
+						submoduleCfg: [], 
+						userRemoteConfigs: [[url: 'https://github.com/abhi280119/ls-demo']]
+						])
+				echo "BRANCH NAME WHICH IS BEING BUILT IS ${BRANCH_NAME}"
 				echo '++++++++++++++++++++Code Checkout stage - checking out the source code++++++++++++++++++++'
 			}
 		}
