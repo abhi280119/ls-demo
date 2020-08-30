@@ -6,14 +6,14 @@ pipeline {
 	}
 	
 	// To set maven exceutable in PATH variable (if not set explicitly on the jenkins server)
-	/*environment {
+	/** environment {
   		PATH = "/opt/maven/bin:$PATH"
-	}*/
+	} */
 
 	// To define the CRON job to poll the SCM for changes
-	/*triggers {
+	/** triggers {
   		pollSCM '* * * * *'
-	}*/
+	} */
 
 	stages {
 		stage('Code Checkout') {
@@ -42,7 +42,7 @@ pipeline {
 		}
 		
 		// Deployent to tomcat server without SSH (USING "Deploy to container Plugin")
-		/* stage('Deploy') {
+		/** stage('Deploy') {
 			steps {
 				echo '++++++++++++++++++++Deploy stage (USING "Deploy to container Plugin") - deploying artifact++++++++++++++++++++'
 				deploy adapters: [tomcat9(credentialsId: 'deployer_user', path: '', url: 'http://34.243.111.63:8080/')], contextPath: null, war: '**/*.war'
