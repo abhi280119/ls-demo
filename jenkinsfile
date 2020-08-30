@@ -5,15 +5,15 @@ pipeline {
   		maven 'M2_HOME'
 	}
 	
-	// To set maven exceutable in PATH variable
-	environment {
+	// To set maven exceutable in PATH variable (if not set explicitly on the jenkins server)
+	/*environment {
   		PATH = "/opt/maven/bin:$PATH"
-	}
+	}*/
 
 	// To define the CRON job to poll the SCM for changes
-	//triggers {
-  	//	pollSCM '* * * * *'
-	//}
+	/*triggers {
+  		pollSCM '* * * * *'
+	}*/
 
 	stages {
 		stage('Code Checkout') {
@@ -36,15 +36,32 @@ pipeline {
 			steps {
 				echo '++++++++++++++++++++Build stage - compiling and building artifact++++++++++++++++++++'
 				sh "mvn package"
+				sh "mv target/*.war target/demo.war"
 				echo '++++++++++++++++++++Build stage - build successfully generated++++++++++++++++++++'
 			}
 		}
 		
+		// Deployent to tomcat server without SSH (USING "Deploy to container Plugin")
+		/* stage('Deploy') {
+			steps {
+				echo '++++++++++++++++++++Deploy stage (USING "Deploy to container Plugin") - deploying artifact++++++++++++++++++++'
+				deploy adapters: [tomcat9(credentialsId: 'deployer_user', path: '', url: 'http://34.243.111.63:8080/')], contextPath: null, war: '**/*.war'
+				echo '++++++++++++++++++++Deploy stage (USING "Deploy to container Plugin") - artifact deployed++++++++++++++++++++'
+			}
+		} */
+		
+		// Deployment to tomcat server using SSH connect and copying the war artifact (USING "SSH Agent Plugin")
 		stage('Deploy') {
 			steps {
-				echo '++++++++++++++++++++Deploy stage - deploying artifact++++++++++++++++++++'
-				deploy adapters: [tomcat9(credentialsId: 'deployer_user', path: '', url: 'http://34.243.111.63:8080/')], contextPath: null, war: '**/*.war'
-				echo '++++++++++++++++++++Deploy stage - artifact deployed++++++++++++++++++++'
+				echo '++++++++++++++++++++Deploy stage (USING "SSH Agent Plugin") - deploying artifact++++++++++++++++++++'
+				sshagent(['tomcat_ssh_user']) {
+    					sh """
+						scp -o StrictHostKeyChecking=no target/demo.war ec2-user@172.31.41.161:/opt/tomcat/webapps
+						shh ec2-user@172.31.41.161 /opt/tomcat/bin/shutdown.sh
+						shh ec2-user@172.31.41.161 /opt/tomcat/bin/startup.sh
+					"""
+				}
+				echo '++++++++++++++++++++Deploy stage (USING "SSH Agent Plugin") - artifact deployed++++++++++++++++++++'
 			}
 		}
 	}
