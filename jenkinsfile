@@ -57,8 +57,8 @@ pipeline {
 				sshagent(['tomcat_ssh_user']) {
     					sh """
 						scp -o StrictHostKeyChecking=no target/demo.war ec2-user@172.31.41.161:/opt/tomcat/webapps
-						shh ec2-user@172.31.41.161 /opt/tomcat/bin/shutdown.sh
-						shh ec2-user@172.31.41.161 /opt/tomcat/bin/startup.sh
+						ssh ec2-user@172.31.41.161 /opt/tomcat/bin/shutdown.sh
+						ssh ec2-user@172.31.41.161 /opt/tomcat/bin/startup.sh
 					"""
 				}
 				echo '++++++++++++++++++++Deploy stage (USING "SSH Agent Plugin") - artifact deployed++++++++++++++++++++'
