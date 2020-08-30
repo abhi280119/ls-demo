@@ -1,10 +1,16 @@
 pipeline {
 	agent any
-	
+	// To specify the installed tool to be used
 	tools {
   		maven 'M2_HOME'
 	}
 	
+	// To set maven exceutable in PATH variable
+	environment {
+  		PATH = "/opt/maven/bin:$PATH"
+	}
+
+	// To define the CRON job to poll the SCM for changes
 	//triggers {
   	//	pollSCM '* * * * *'
 	//}
