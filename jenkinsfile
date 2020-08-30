@@ -71,20 +71,10 @@ pipeline {
 			echo '++++++++++++++++++++Build process is completed++++++++++++++++++++'
 		}
 		success {
-			mail bcc: '', body: '''Hi
-
-			Build has been successfully generated and deployed to target environment.
-
-			Thanks
-			Jenkins''', cc: '', from: '', replyTo: '', subject: 'Build deployed successfully', to: 'abhishek.lvs@gmail.com'
+			echo '++++++++++++++++++++BUILD PROCESS COMPLETION STATUS - SUCCESS++++++++++++++++++++'
 		}
 		failure {
-			mail bcc: '', body: '''Hi
-
-			Build and deployment has failed.
-
-			Thanks
-			Jenkins''', cc: '', from: '', replyTo: '', subject: 'Build deployment failed', to: 'abhishek.lvs@gmail.com'
+			echo '++++++++++++++++++++BUILD PROCESS COMPLETION STATUS - SUCCESS++++++++++++++++++++'
 		}
 	}
 }
