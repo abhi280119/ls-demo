@@ -28,7 +28,6 @@ pipeline {
 						submoduleCfg: [], 
 						userRemoteConfigs: [[url: 'https://github.com/abhi280119/ls-demo']]
 						])
-				echo "BRANCH NAME WHICH IS BEING BUILT IS ${BRANCH_NAME}"
 				echo '++++++++++++++++++++Code Checkout stage - checking out the source code++++++++++++++++++++'
 			}
 		}
