@@ -13,5 +13,13 @@ pipeline {
 				echo '++++++++++++++++++++Clean stage - last build files have been deleted++++++++++++++++++++'
 			}
 		}
+		
+		stage('Compile & Build') {
+			steps {
+				echo '++++++++++++++++++++Build stage - compiling and building artifact++++++++++++++++++++'
+				sh "mvn package"
+				echo '++++++++++++++++++++Build stage - build successfully generated++++++++++++++++++++'
+			}
+		}
 	}
 }
