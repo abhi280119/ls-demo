@@ -40,7 +40,7 @@ pageEncoding="UTF-8"%>
                         <input type="text" id="databaseusername" name="username" class="topinput" maxlength="40" tabindex="1" value="" placeholder="Username" />
                         <input type="password" id="databasepassword" class="bottominput" name="password" maxlength="255" tabindex="2" placeholder="Password" />
                         <div id="db_info">
-                            <label class="db">Database: </label>
+                            <label class="db">Database:</label>
 
                             <select name="DB" id="db">
                 <option value="cognizant">Cognizant_Internal</option>
