@@ -5,12 +5,19 @@ pipeline {
   		maven 'M2_HOME'
 	}
 	
-	triggers {
-  		pollSCM '* * * * *'
-	}
+	//triggers {
+  	//	pollSCM '* * * * *'
+	//}
 
-	
 	stages {
+		stage('Code Checkout') {
+			steps {
+				echo '++++++++++++++++++++Code Checkout stage - checking out the source code++++++++++++++++++++'
+				git 'https://github.com/abhi280119/ls-demo'
+				echo '++++++++++++++++++++Code Checkout stage - checking out the source code++++++++++++++++++++'
+			}
+		}
+		
 		stage('Clean') {
 			steps {
 				echo '++++++++++++++++++++Clean stage - clearing last build files++++++++++++++++++++'
@@ -19,7 +26,7 @@ pipeline {
 			}
 		}
 		
-		stage('Compile & Build') {
+		stage('Unit Test, Compile & Build') {
 			steps {
 				echo '++++++++++++++++++++Build stage - compiling and building artifact++++++++++++++++++++'
 				sh "mvn package"
