@@ -44,8 +44,8 @@ pageEncoding="UTF-8"%>
 
                             <select name="DB" id="db">
                 <option value="cognizant">Cognizant_Internal</option>
-                <option value="User1">DEV1</option>
-                <option value="User2">UAT1</option>
+                <option value="User1">DEV2</option>
+                <option value="User2">UAT2</option>
               </select>
                         </div>
                         <div id="footerdiv">
