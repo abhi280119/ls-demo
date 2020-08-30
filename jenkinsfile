@@ -42,13 +42,13 @@ pipeline {
 		}
 		
 		// Deployent to tomcat server without SSH (USING "Deploy to container Plugin")
-		/** stage('Deploy') {
-			steps {
-				echo '++++++++++++++++++++Deploy stage (USING "Deploy to container Plugin") - deploying artifact++++++++++++++++++++'
-				deploy adapters: [tomcat9(credentialsId: 'deployer_user', path: '', url: 'http://34.243.111.63:8080/')], contextPath: null, war: '**/*.war'
-				echo '++++++++++++++++++++Deploy stage (USING "Deploy to container Plugin") - artifact deployed++++++++++++++++++++'
-			}
-		} */
+		//stage('Deploy') {
+		//	steps {
+		//		echo '++++++++++++++++++++Deploy stage (USING "Deploy to container Plugin") - deploying artifact++++++++++++++++++++'
+		//		deploy adapters: [tomcat9(credentialsId: 'deployer_user', path: '', url: 'http://34.243.111.63:8080/')], contextPath: null, war: '**/*.war'
+		//		echo '++++++++++++++++++++Deploy stage (USING "Deploy to container Plugin") - artifact deployed++++++++++++++++++++'
+		//	}
+		//}
 		
 		// Deployment to tomcat server using SSH connect and copying the war artifact (USING "SSH Agent Plugin")
 		stage('Deploy') {
