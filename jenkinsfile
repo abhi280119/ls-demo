@@ -5,6 +5,11 @@ pipeline {
   		maven 'M2_HOME'
 	}
 	
+	triggers {
+  		pollSCM '* * * * *'
+	}
+
+	
 	stages {
 		stage('Clean') {
 			steps {
@@ -19,6 +24,14 @@ pipeline {
 				echo '++++++++++++++++++++Build stage - compiling and building artifact++++++++++++++++++++'
 				sh "mvn package"
 				echo '++++++++++++++++++++Build stage - build successfully generated++++++++++++++++++++'
+			}
+		}
+		
+		stage('Deploy') {
+			steps {
+				echo '++++++++++++++++++++Deploy stage - deploying artifact++++++++++++++++++++'
+				sh "mvn package"
+				echo '++++++++++++++++++++Deploy stage - artifact deployed++++++++++++++++++++'
 			}
 		}
 	}
